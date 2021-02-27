@@ -5,13 +5,13 @@ import productsData from '../data/products.json';
 /*
  * This hook simulates an asynchronous call to an API to fetch product data for
  * the application.  It returns an object with the keys `products` and
- * `isLoading`, which respectively contain the array of products data and a
- * boolean value indicating whether the data is being "loaded".  A simple timer
+ * `isLoading`, whiof products data and a
+ * boolean value indicating whether the datach respectively contain the array  is being "loaded".  A simple timer
  * is used to create the effect of an asynchronous operation.
  */
 function useProducts() {
-  const [ products, setProducts ] = useState([]);
-  const [ isLoading, setIsLoading ] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     /*
