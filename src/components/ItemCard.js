@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { BOX_SHADOW_CARD } from '../utils/constants'
+import { useDispatch } from 'react-redux'
+import { subtractProduct } from '../redux/actions'
 
 const Container = styled.div`
   border-radius: 8px;
@@ -62,28 +64,36 @@ const QtyLabel = styled.span`
 `
 
 const QtyInput = styled.input`
-  width: 50px;
-  /* margin-right: 0.3rem; */
+  width: 60px;
   border: none;
   outline: none;
   background-color: #eee;
+  padding: 4px;
+  border-radius: 6px;
 `
 
 const AddCartBtn = styled.button`
   border-radius: 4px;
   border: none;
   padding: 0.55rem 0.8rem;
-  &:hover {
-    filter: brightness(110%);
-  }
   background-color: var(--green);
   color: white;
   cursor: pointer;
   outline: none;
+  &:hover {
+    filter: brightness(110%);
+  }
+  &:disabled {
+    background-color: var(--disabled-gray);
+    &:hover {
+      filter: brightness(100%);
+    }
+  }
 `
 
-function ItemCard({ name, price, inStock, photoUrl }) {
+function ItemCard({ name, price, inStock, photoUrl, id }) {
   const [qty, setQty] = useState(0)
+  const dispatch = useDispatch()
 
   function onQtyChange(e) {
     setQty(e.target.value)
@@ -91,10 +101,22 @@ function ItemCard({ name, price, inStock, photoUrl }) {
 
   function onSubmit(e) {
     e.preventDefault()
+    const qty = parseInt(e.target[0].value)
+    // const productId = parseInt(e.target.parentNode.parentNode.dataset.id)
+    if (qty === 0) {
+      alert('Quantity cannot be 0')
+      return
+    }
+    // check if quantity > in stock
+    if (qty > inStock) {
+      alert('Not enough item in stock')
+      return
+    }
+    dispatch(subtractProduct({ id: id, qty: qty }))
   }
 
   return (
-    <Container>
+    <Container data-id={id}>
       <Image src={photoUrl} />
       <UpperSubContainer>
         <Name>{name}</Name>
@@ -112,7 +134,7 @@ function ItemCard({ name, price, inStock, photoUrl }) {
               onChange={onQtyChange}
             ></QtyInput>
           </QtyContainer>
-          <AddCartBtn>Add to Cart</AddCartBtn>
+          <AddCartBtn disabled={inStock === 0}>Add to Cart</AddCartBtn>
         </AddCartForm>
       </LowerSubContainer>
     </Container>

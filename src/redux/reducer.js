@@ -1,19 +1,36 @@
 import { combineReducers } from 'redux'
-import { FETCH_INVENTORY, RECEIVE_PRODUCTS } from './actions'
+import { RECEIVE_PRODUCTS, SUBTRACT_PRODUCT, ADD_TO_CART } from './actions'
 
 function inventoryReducer(state = [], action) {
   switch (action.type) {
     case RECEIVE_PRODUCTS:
-      console.log('receiving products')
       return action.inventory
+    case SUBTRACT_PRODUCT:
+      return state.map(item =>
+        item.id === action.id
+          ? {
+              ...item,
+              inStock: item.inStock - action.qty
+            }
+          : item
+      )
+    default:
+      return state
+  }
+}
 
+function cartReducer(state = [], action) {
+  switch (action.type) {
+    case ADD_TO_CART:
+      return [...state, action.payload]
     default:
       return state
   }
 }
 
 const rootReducer = combineReducers({
-  inventory: inventoryReducer
+  inventory: inventoryReducer,
+  cart: cartReducer
 })
 
 export default rootReducer

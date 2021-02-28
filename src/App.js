@@ -6,6 +6,7 @@ import { receiveProducts } from './redux/actions'
 import { useDispatch } from 'react-redux'
 import HashLoader from 'react-spinners/HashLoader'
 import useProducts from './hooks/useProducts'
+import Cart from './components/Cart'
 
 const Spinner = styled.div`
   display: flex;
@@ -28,7 +29,10 @@ function App() {
           <HashLoader size={150} color="#36d2b3" />
         </Spinner>
       ) : (
-        <MainContent />
+        <>
+          <Cart />
+          <MainContent />
+        </>
       )}
     </div>
   )

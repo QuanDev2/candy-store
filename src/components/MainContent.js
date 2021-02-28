@@ -22,6 +22,7 @@ function MainContent() {
         price={item.price}
         inStock={item.inStock}
         photoUrl={item.photoUrl}
+        id={item.id}
       />
     ))
   }
