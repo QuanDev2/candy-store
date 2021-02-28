@@ -1,10 +1,16 @@
 import React from 'react'
+import styled from '@emotion/styled'
 
+const Title = styled.h1`
+  font-size: 2rem;
+  margin: 0.7rem 3rem;
+`
+const Container = styled.nav``
 function Navbar() {
   return (
-    <div>
-      <h1>THis is nav bar</h1>
-    </div>
+    <Container>
+      <Title>Quan's Candy Shop</Title>
+    </Container>
   )
 }
 

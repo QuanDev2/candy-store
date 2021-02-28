@@ -2,18 +2,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { BOX_SHADOW_CARD } from '../utils/constants'
 
-const data = {
-  id: 1,
-  name: 'Swedish Fish',
-  price: 0.01,
-  inStock: 2500,
-  photoUrl:
-    'https://upload.wikimedia.org/wikipedia/commons/4/40/Swedish_fish.png'
-}
-
 const Container = styled.div`
-  max-width: 400px;
-  flex-grow: 1;
   border-radius: 8px;
   box-shadow: ${BOX_SHADOW_CARD};
   padding: 1rem;
@@ -21,7 +10,7 @@ const Container = styled.div`
 `
 
 const Image = styled.img`
-  width: 320px;
+  width: 400px;
   height: 300px;
   object-fit: contain;
   margin-bottom: 1rem;
@@ -55,23 +44,38 @@ const AddCartForm = styled.form`
   display: inline;
 `
 
+const QtyContainer = styled.div`
+  border: 1px solid #333;
+  border-radius: 4px;
+  height: 33px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px;
+  margin-right: 5px;
+`
+
 const QtyLabel = styled.span`
   margin-right: 6px;
   font-size: 0.85rem;
 `
 
-const CartQty = styled.input`
-  width: 60px;
-  padding: 3px;
-  height: 33px;
-  margin-right: 0.3rem;
+const QtyInput = styled.input`
+  width: 50px;
+  /* margin-right: 0.3rem; */
+  border: none;
+  outline: none;
 `
 
 const AddCartBtn = styled.button`
-  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  border: none;
+  padding: 0.55rem 0.8rem;
   &:hover {
-    filter: brightness(85%);
+    filter: brightness(110%);
   }
+  background-color: var(--green);
+  color: white;
+  cursor: pointer;
 `
 
 function ItemCard({ name, price, inStock, photoUrl }) {
@@ -81,7 +85,9 @@ function ItemCard({ name, price, inStock, photoUrl }) {
     setQty(e.target.value)
   }
 
-  function onSubmit() {}
+  function onSubmit(e) {
+    e.preventDefault()
+  }
 
   return (
     <Container>
@@ -93,13 +99,15 @@ function ItemCard({ name, price, inStock, photoUrl }) {
       <LowerSubContainer>
         <InStock>In stock: {inStock}</InStock>
         <AddCartForm onSubmit={onSubmit}>
-          <QtyLabel>Qty</QtyLabel>
-          <CartQty
-            type="number"
-            min="0"
-            value={qty}
-            onChange={onQtyChange}
-          ></CartQty>
+          <QtyContainer>
+            <QtyLabel>Qty:</QtyLabel>
+            <QtyInput
+              type="number"
+              min="0"
+              value={qty}
+              onChange={onQtyChange}
+            ></QtyInput>
+          </QtyContainer>
           <AddCartBtn>Add to Cart</AddCartBtn>
         </AddCartForm>
       </LowerSubContainer>
