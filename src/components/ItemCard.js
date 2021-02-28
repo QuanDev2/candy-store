@@ -45,13 +45,15 @@ const AddCartForm = styled.form`
 `
 
 const QtyContainer = styled.div`
-  border: 1px solid #333;
-  border-radius: 4px;
+  border: 1px solid var(--gray);
+  box-shadow: ${BOX_SHADOW_CARD};
+  border-radius: 8px;
   height: 33px;
   display: inline-flex;
   align-items: center;
   padding: 0 6px;
   margin-right: 5px;
+  background-color: var(--light-gray);
 `
 
 const QtyLabel = styled.span`
@@ -64,6 +66,7 @@ const QtyInput = styled.input`
   /* margin-right: 0.3rem; */
   border: none;
   outline: none;
+  background-color: #eee;
 `
 
 const AddCartBtn = styled.button`
@@ -76,6 +79,7 @@ const AddCartBtn = styled.button`
   background-color: var(--green);
   color: white;
   cursor: pointer;
+  outline: none;
 `
 
 function ItemCard({ name, price, inStock, photoUrl }) {

@@ -6,6 +6,9 @@ function GlobalStyle() {
 
     :root {
       --green: #0bbb98;
+      --light-gray: #f0f2f2;
+      --gray: #ccc;
+      --spinner-green: #36d2b3;
     }
 
     * {

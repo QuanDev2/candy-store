@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
-import productsData from '../data/products.json';
+import productsData from '../data/products.json'
 
 /*
  * This hook simulates an asynchronous call to an API to fetch product data for
@@ -10,21 +10,21 @@ import productsData from '../data/products.json';
  * is used to create the effect of an asynchronous operation.
  */
 function useProducts() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     /*
      * "Fetch" products data with a delay of 1000ms.
      */
-    setIsLoading(true);
+    setIsLoading(true)
     setTimeout(() => {
-      setProducts(productsData);
-      setIsLoading(false);
-    }, 1000);
-  }, []);
+      setProducts(productsData)
+      setIsLoading(false)
+    }, 1000)
+  }, [])
 
-  return { products, isLoading };
+  return { products, isLoading }
 }
 
-export default useProducts;
+export default useProducts

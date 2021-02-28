@@ -4,7 +4,8 @@ import { FETCH_INVENTORY, RECEIVE_PRODUCTS } from './actions'
 function inventoryReducer(state = [], action) {
   switch (action.type) {
     case RECEIVE_PRODUCTS:
-      return [action.inventory, ...state]
+      console.log('receiving products')
+      return action.inventory
 
     default:
       return state
