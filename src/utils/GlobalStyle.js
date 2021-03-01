@@ -1,36 +1,40 @@
 import { Global, css } from '@emotion/react'
+import React from 'react'
 
 function GlobalStyle() {
-  const globalStyle = css`
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+	const globalStyle = css`
+		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-    :root {
-      --green: #0bbb98;
-      --light-gray: #f0f2f2;
-      --gray: #ccc;
-      --spinner-green: #36d2b3;
-      --disabled-gray: #bbb;
-    }
+		:root {
+			--green: #0bbb98;
+			--light-gray: #f0f2f2;
+			--gray: #ccc;
+			--spinner-green: #36d2b3;
+			--disabled-gray: #bbb;
+			--dark-green: #007185;
+			--red: #e33737;
+			--black: #333;
+		}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: 'Inter', sans-serif;
+		}
 
-    a {
-      text-decoration: none;
-    }
+		a {
+			text-decoration: none;
+		}
 
-    body {
-    }
+		body {
+		}
 
-    li {
-      list-style: none;
-    }
-  `
-  return <Global styles={globalStyle} />
+		li {
+			list-style: none;
+		}
+	`
+	return <Global styles={globalStyle} />
 }
 
 export default GlobalStyle
