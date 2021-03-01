@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { BOX_SHADOW_CARD } from '../utils/constants'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getCartItems, getCartTotal } from '../redux/selectors'
+import { deleteCartItem, checkout } from '../redux/actions'
+import { PropTypes } from 'prop-types'
 
 const Container = styled.div`
 	width: 40%;
@@ -15,7 +17,7 @@ const Container = styled.div`
 
 const ListContainer = styled.ul``
 
-const ListItem = styled.li`
+const ListItemContainer = styled.li`
 	&::after {
 		content: '';
 		display: block;
@@ -117,26 +119,64 @@ const CheckoutBtn = styled.button`
 function CartDetails() {
 	const cartItems = useSelector(getCartItems)
 	const cartTotal = useSelector(getCartTotal)
+	const dispatch = useDispatch()
 
-	const ItemList = ({ itemList }) =>
-		itemList.map(item => (
-			<ListItem key={item.id}>
+	function handleCheckout(e) {
+		e.preventDefault()
+		dispatch(checkout(cartItems))
+	}
+
+	const ItemList = ({ itemList }) => {
+		return itemList.map(item => (
+			<ListItem
+				key={item.id}
+				name={item.name}
+				id={item.id}
+				photoUrl={item.photoUrl}
+				price={item.price}
+				qty={item.qty}
+			/>
+		))
+	}
+
+	const ListItem = ({ id, name, price, photoUrl, qty }) => {
+		function handleDeleteItem(e) {
+			e.preventDefault()
+			dispatch(
+				deleteCartItem({
+					id: id,
+					qty: qty
+				})
+			)
+		}
+		return (
+			<ListItemContainer key={id} data-id={id}>
 				<ListItemContent>
-					<ItemPhoto src={item.photoUrl} />
+					<ItemPhoto src={photoUrl} />
 					<div className="item-info">
-						<ItemName>{item.name}</ItemName>
+						<ItemName>{name}</ItemName>
 						<div>
 							<span>
-								<span style={{ color: '#333' }}>Qty:</span> {item.qty}
+								<span style={{ color: '#333' }}>Qty:</span> {qty}
 							</span>
-							<span style={{ marginLeft: '8px' }}> @ ${item.price} each</span>
+							<span style={{ marginLeft: '8px' }}> @ ${price} each</span>
 						</div>
-						<DeleteBtn>Delete</DeleteBtn>
+						<DeleteBtn onClick={handleDeleteItem}>Delete</DeleteBtn>
 					</div>
-					<LineTotal>${item.qty * item.price}</LineTotal>
+					<LineTotal>${(qty * price).toFixed(2)}</LineTotal>
 				</ListItemContent>
-			</ListItem>
-		))
+			</ListItemContainer>
+		)
+	}
+
+	ListItem.propTypes = {
+		name: PropTypes.string,
+		price: PropTypes.number,
+		inStock: PropTypes.number,
+		photoUrl: PropTypes.string,
+		id: PropTypes.number,
+		qty: PropTypes.number
+	}
 
 	return (
 		<Container>
@@ -155,7 +195,9 @@ function CartDetails() {
 						<span>Total:</span>
 						<span>${cartTotal}</span>
 					</TotalContainer>
-					<CheckoutBtn>Proceed to Checkout</CheckoutBtn>
+					<CheckoutBtn onClick={handleCheckout}>
+						Proceed to Checkout
+					</CheckoutBtn>
 				</>
 			) : (
 				<h3 style={{ fontSize: '1.3rem', fontWeight: '400' }}>

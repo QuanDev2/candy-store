@@ -10,32 +10,34 @@ const Title = styled(Link)`
 	font-size: 2rem;
 	margin: 0.7rem 3rem;
 	display: inline;
-	color: #333;
-	&:visited {
-		color: #333;
-	}
+	color: white;
 `
 const Container = styled.nav`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 95%;
+	padding: 0.5rem 2rem;
+	background-color: var(--dark-green);
+	color: white;
 `
 
 const CartLink = styled(Link)`
-	font-size: 1.5rem;
+	font-size: 2rem;
 	padding: 5px 16px;
 	border-radius: 10px;
 	/* border: 1px solid var(--gray); */
 	border: none;
 	cursor: pointer;
 	outline: none;
+	color: white;
+	margin-right: 2rem;
 `
 const Count = styled.span`
-	margin-left: 6px;
+	margin-left: 9px;
 	position: relative;
-	bottom: 8px;
-	font-size: 1rem;
+	bottom: 12px;
+	font-size: 1.2rem;
+	font-weight: 500;
 `
 
 function Navbar() {

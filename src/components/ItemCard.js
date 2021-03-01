@@ -50,12 +50,12 @@ const AddCartForm = styled.form`
 const QtyContainer = styled.div`
 	border: 1px solid var(--gray);
 	box-shadow: ${BOX_SHADOW_CARD};
-	border-radius: 8px;
+	border-radius: 4px;
 	height: 33px;
 	display: inline-flex;
 	align-items: center;
 	padding: 0 6px;
-	margin-right: 5px;
+	margin-right: 8px;
 	background-color: var(--light-gray);
 `
 
@@ -134,7 +134,13 @@ function ItemCard({ name, price, inStock, photoUrl, id }) {
 				<Price>${price}</Price>
 			</UpperSubContainer>
 			<LowerSubContainer>
-				<InStock>In stock: {inStock}</InStock>
+				<InStock>
+					{inStock > 0 ? (
+						<span>In stock: {inStock}</span>
+					) : (
+						<span>Out of Stock</span>
+					)}
+				</InStock>
 				<AddCartForm onSubmit={onSubmit}>
 					<QtyContainer>
 						<QtyLabel>Qty:</QtyLabel>

@@ -4,22 +4,14 @@ import {
 	RECEIVE_PRODUCTS,
 	SUBTRACT_PRODUCT,
 	ADD_TO_CART,
-	DELETE_CART_ITEM
+	DELETE_CART_ITEM,
+	CHECKOUT
 } from './actions'
 
 function inventoryReducer(state = [], action) {
 	switch (action.type) {
 		case RECEIVE_PRODUCTS:
 			return action.inventory
-		// case SUBTRACT_PRODUCT:
-		//   return state.map(item =>
-		//     item.id === action.id
-		//       ? {
-		//           ...item,
-		//           inStock: item.inStock - action.qty
-		//         }
-		//       : item
-		//   )
 		case SUBTRACT_PRODUCT:
 			return state.map(item =>
 				item.id === action.payload.id
@@ -29,6 +21,13 @@ function inventoryReducer(state = [], action) {
 					  }
 					: item
 			)
+		case DELETE_CART_ITEM:
+			return state.map(item =>
+				item.id === action.payload.id
+					? { ...item, inStock: item.inStock + action.payload.qty }
+					: item
+			)
+
 		default:
 			return state
 	}
@@ -37,7 +36,6 @@ function inventoryReducer(state = [], action) {
 function cartReducer(state = [], action) {
 	switch (action.type) {
 		case ADD_TO_CART:
-			// traverse state to see if item already exists
 			if (state.find(item => item.id === action.payload.id)) {
 				return state.map(item =>
 					item.id === action.payload.id
@@ -47,7 +45,10 @@ function cartReducer(state = [], action) {
 			} else {
 				return [...state, action.payload]
 			}
-
+		case DELETE_CART_ITEM:
+			return state.filter(item => item.id !== parseInt(action.payload.id))
+		case CHECKOUT:
+			return []
 		default:
 			return state
 	}

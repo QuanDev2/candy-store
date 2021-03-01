@@ -5,11 +5,20 @@ import { useSelector } from 'react-redux'
 import { getInventory } from '../redux/selectors'
 
 const Container = styled.div`
+	max-width: 80%;
+	margin: 2rem auto;
+`
+
+const Title = styled.h1`
+	font-weight: 500;
+	color: var(--black);
+`
+
+const ProductListContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	max-width: 80%;
-	margin: auto;
 	justify-content: center;
+	margin-top: 2rem;
 `
 
 function MainContent() {
@@ -28,7 +37,10 @@ function MainContent() {
 
 	return (
 		<Container>
-			<ProductList />
+			<Title>Best Selling Candy</Title>
+			<ProductListContainer>
+				<ProductList />
+			</ProductListContainer>
 		</Container>
 	)
 }
