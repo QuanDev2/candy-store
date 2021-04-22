@@ -40,6 +40,11 @@ const Count = styled.span`
 	font-weight: 500;
 `
 
+const CartText = styled.span`
+	font-size: 1.5rem;
+	margin-right: 1rem;
+`
+
 function Navbar() {
 	const count = useSelector(getDistinctProductCount)
 
@@ -47,6 +52,10 @@ function Navbar() {
 		<Container>
 			<Title to="/">Quan&apos;s Candy Shop</Title>
 			<CartLink to="/cart">
+				<CartText>
+					Shopping Cart
+
+				</CartText>
 				<FontAwesomeIcon icon={faShoppingCart} />
 				{count > 0 && <Count>{count}</Count>}
 				<Count />
